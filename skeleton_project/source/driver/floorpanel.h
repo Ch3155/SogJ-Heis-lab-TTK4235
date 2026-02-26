@@ -9,3 +9,5 @@ struct Floorpanel {
     bool BTN_FLR_2_UP;
     bool BTN_FLR_1_UP;
 };
+
+void Floorpanel_update(struct Floorpanel* floorpanel);
