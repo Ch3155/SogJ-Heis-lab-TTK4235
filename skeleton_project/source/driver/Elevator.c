@@ -1,5 +1,57 @@
-#pragma once
-#include "elevio.h"
+#include <Elevator.h>
+#include <elevio.h>
 
-int current_floor;
-bool door_is_open;
+
+
+
+
+void Elevator_set_door(struct Elevator* Elevator, bool value){
+    Elevator->door_is_open = value;
+    elevio_doorOpenLamp(value);
+}
+
+void Elevator_init(){
+    struct Elevator* Elevator= malloc(sizeof(struct Elevator));
+    //Initialize the elevator state
+    elevio_doorOpenLamp(0);
+    Elevator->door_is_open = false;
+    Elevator->current_floor = elevio_floorSensor();
+    if (Elevator->current_floor == -1){
+        Elevator->is_between_floors = true;
+    } else {
+        Elevator->is_between_floors = false;
+    }
+
+    Elevator->stop_button_pressed=
+}
+
+void Elevator_update(struct Elevator* Elevator){
+    
+    if (elevio_floorSensor() != -1){
+        Elevator->current_floor = elevio_floorSensor();
+        Elevator->is_between_floors = false;
+    } else {
+        Elevator->is_between_floors = true;
+    }
+
+
+    Elevator->stop_button_pressed = elevio_stopButton();
+
+    for (int floor = 0; floor < N_FLOORS; floor++){
+       switch (floor){
+        bool Button_state = elevio_callButton(floor, BUTTON_CAB);
+                    case 0:
+                        Elevator->BTN_1 = Button_state;
+                        break;
+                    case 1:
+                        Elevator->BTN_2 = Button_state;
+                        break;
+                    case 2:
+                        Elevator->BTN_3 = Button_state;
+                        break;
+                    case 3:
+                        Elevator->BTN_4 = Button_state;
+                        break;
+        }
+    }
+}
