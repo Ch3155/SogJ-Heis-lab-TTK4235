@@ -15,21 +15,19 @@ void q_system_empty_q(struct Q_system *q) {
     };
 }
 
-void q_system_remove_FLR(struct Q_system *q, struct Elevator *elevator, struct Floorpanel *floorpanel) {
+void q_system_remove_FLR(struct Q_system *q, struct Elevator *elevator) {
     if (elevator->current_floor == 0) {
-        elevator->BTN_1 = 0;
-        floorpanel->BTN_FLR_1_UP = 0;
+        q->q_up[0] = 0;
+        q->q_down[0] = 0;
     } else if (elevator->current_floor == 1) {
-        elevator->BTN_2 = 0;
-        floorpanel->BTN_FLR_2_UP = 0;
-        floorpanel->BTN_FLR_2_DWN = 0;
+        q->q_up[0] = 0;
+        q->q_down[0] = 0;
     } else if (elevator->current_floor == 2) {
-        elevator->BTN_3 = 0;
-        floorpanel->BTN_FLR_3_UP = 0;
-        floorpanel->BTN_FLR_3_DWN = 0;
+        q->q_up[0] = 0;
+        q->q_down[0] = 0;
     } else if (elevator->current_floor == 3) {
-        elevator->BTN_4 = 0;
-        floorpanel->BTN_FLR_4_DWN = 0;
+        q->q_up[0] = 0;
+        q->q_down[0] = 0;
     }
 }
 

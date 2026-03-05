@@ -1,13 +1,27 @@
 #include "Elevator.h"
 #include "elevio.h"
+#include <time.h>
 
 
 
 
 
 void Elevator_set_door(struct Elevator* Elevator, bool value){
-    Elevator->door_is_open = value;
-    elevio_doorOpenLamp(value);
+
+    while (1)
+    {
+
+    
+    if (elevio_obstruction() == false){
+        Elevator->door_is_open = value;
+        return;
+    } else {
+        nanosleep(&(struct timespec){0, 3*1e9}, NULL);
+    }
+
+    }
+    
+    
 }
 
 struct Elevator* Elevator_init(){
