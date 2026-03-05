@@ -9,12 +9,20 @@ struct Lights {
     bool doorOpenLamp;
     bool stopLamp;
 
-    bool floorLamp;
+    bool floor1Lamp;
+    bool floor2Lamp;
+    bool floor3Lamp;
+    bool floor4Lamp;
+
+    bool btn1Lamp;
+    bool btn2Lamp;
+    bool btn3Lamp;
+    bool btn4Lamp;
 };
 
 
 struct Lights* Lights_init();
-void Lights_update(struct Lights* lights);
+void Lights_update(struct Lights* lights, struct Elevator elevator, struct Floorpanel floorpanel);
 
 
 
@@ -23,22 +31,3 @@ void Lights_update(struct Lights* lights);
 
 
 
-
-
-void q_system_remove_FLR(struct Q_system *q, struct Elevator *elevator, struct Floorpanel *floorpanel) {
-    if (elevator->current_floor == 0) {
-        elevator->BTN_1 = 0;
-        floorpanel->BTN_FLR_1_UP = 0;
-    } else if (elevator->current_floor == 1) {
-        elevator->BTN_2 = 0;
-        floorpanel->BTN_FLR_2_UP = 0;
-        floorpanel->BTN_FLR_2_DWN = 0;
-    } else if (elevator->current_floor == 2) {
-        elevator->BTN_3 = 0;
-        floorpanel->BTN_FLR_3_UP = 0;
-        floorpanel->BTN_FLR_3_DWN = 0;
-    } else if (elevator->current_floor == 3) {
-        elevator->BTN_4 = 0;
-        floorpanel->BTN_FLR_4_DWN = 0;
-    }
-}
