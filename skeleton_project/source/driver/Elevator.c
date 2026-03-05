@@ -10,8 +10,8 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
     elevio_doorOpenLamp(value);
 }
 
-void Elevator_init(){
-    struct Elevator* Elevator= malloc(sizeof(struct Elevator));
+struct Elevator* Elevator_init(){
+    struct Elevator* Elevator;
     //Initialize the elevator state
     elevio_doorOpenLamp(0);
     Elevator->door_is_open = false;
@@ -22,11 +22,12 @@ void Elevator_init(){
         Elevator->is_between_floors = false;
     }
 
-    Elevator->stop_button_pressed=
+    Elevator->stop_button_pressed=elevio_stopButton();
+    return Elevator;
 }
 
 void Elevator_update(struct Elevator* Elevator){
-    
+    //Update current floor and between floors status
     if (elevio_floorSensor() != -1){
         Elevator->current_floor = elevio_floorSensor();
         Elevator->is_between_floors = false;
@@ -37,6 +38,7 @@ void Elevator_update(struct Elevator* Elevator){
 
     Elevator->stop_button_pressed = elevio_stopButton();
 
+    //Update Floor button states
     for (int floor = 0; floor < N_FLOORS; floor++){
        switch (floor){
         bool Button_state = elevio_callButton(floor, BUTTON_CAB);
@@ -54,4 +56,7 @@ void Elevator_update(struct Elevator* Elevator){
                         break;
         }
     }
+
+    Elevator->stop_button_pressed = elevio_stopButton();
+
 }

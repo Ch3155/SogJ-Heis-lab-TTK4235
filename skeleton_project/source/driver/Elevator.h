@@ -26,10 +26,10 @@ struct Elevator {   // Structure declaration
 void Elevator_set_door(struct Elevator* Elevator, bool value);
 
 /**
-*@brief Initializes the Elevator structure with default values.
+*@brief Creates and initializes a global Elevator structure with default values.
 *
 */
-void Elevator_init();
+struct Elevator* Elevator_init();
 
 /**
  * @brief Updates the state of the elevator based on sensor readings and button states.
