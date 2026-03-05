@@ -13,4 +13,7 @@ void Floorpanel_update(struct Floorpanel* floorpanel){
     floorpanel->BTN_FLR_2_DWN = elevio_callButton(1, BUTTON_HALL_DOWN);
     floorpanel->BTN_FLR_2_UP   = elevio_callButton(1, BUTTON_HALL_UP);
     floorpanel->BTN_FLR_1_UP   = elevio_callButton(0, BUTTON_HALL_UP);
+
+
+    
 }
