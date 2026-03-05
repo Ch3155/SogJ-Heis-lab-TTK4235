@@ -7,6 +7,7 @@
 #include "ElevatorControl.h"
 
 void ElevatorControl_update(struct ElevatorControl* elevator_control){
+    /*
     Elevator_update(elevator_control->Elevator);
     Floorpanel_update(elevator_control->floorpanel);
 
@@ -14,4 +15,5 @@ void ElevatorControl_update(struct ElevatorControl* elevator_control){
     q_system_get_target_floor(*elevator_control->q_system, *elevator_control->Elevator);
 
     MotorControl_move_to_floor(elevator_control->Elevator, elevator_control->q_system, elevator_control->q_system->target_floor);
-}
+*/
+    }
