@@ -1,7 +1,7 @@
 #pragma once
-#include <elevator.h>
+#include "Elevator.h"
 #include <stdbool.h>
-#include <floorpanel.h>
+#include "floorpanel.h"
 
 struct Q_system {
     int q_up[4]; //Liste over bestillinger opp

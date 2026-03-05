@@ -1,4 +1,4 @@
-#include <q_system.h>
+#include "q_system.h"
 
 
 void q_system_empty_q(struct Q_system *q) {
@@ -88,7 +88,15 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
                 }
             }
             break;
-        case 
+        case 1; //Heisen beveger seg oppover
+            for (int i = elevator.current_floor; int i = 3; i++) {
+                if (q.q_up[i] == 1) {
+                    return i;
+                }
+            }
+            break;
+        case 0; //Heisen står stille
+            //Prioritering på køene? Kjører endten til høyeste etasje som skal ned eller laveste etasje som skal opp
     }
     return -1; //Heisen fant ikke noe måletasje 
 }
