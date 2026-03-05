@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "floorpanel.h"
 #include "ElevatorControl.h"
+#include <time.h>
 
 struct ElevatorControl* ElevatorControl_init(){
     struct ElevatorControl* elevator_control;
@@ -24,18 +25,37 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     States Current_state = StartUp;
 
+    while (1)
+    {
+
+    
     switch (Current_state)
     {
     case StartUp:
-        /* code */
+        
+        if (elevator_control->Elevator->is_between_floors==false) {
+            Current_state = Idle;
+        } else {
+            Elevator_set_door(elevator_control->Elevator, false);
+            elevio_motorDirection(DIRN_DOWN);
+        }
+            
+
+
         break;
+
+
     case Idle:
-        /* code */
+        Elevator_set_door(elevator_control->Elevator, false);    
+
         break; 
+    
     case Moving:
-        /* code */
+        
     case EmergencyStop:
         /* code */
         break;  
         
     }
+}
+}
