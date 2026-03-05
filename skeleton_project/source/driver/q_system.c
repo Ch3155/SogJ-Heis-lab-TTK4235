@@ -78,10 +78,17 @@ void q_system_make_q(struct Q_system *q, struct Elevator elevator, struct Floorp
 }
 
 
-void q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
-    int dir = elevator.cur_dir;
-
-    if (dir == -1) { //Heisen beveger seg nedover
-        //Sjekk hvor vi er og ta neste i rekken som er i kø
+int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
+    switch (elevator.cur_dir) {
+        case -1: //Heisen beveger seg nedover
+            //Sjekk hvor vi er og ta neste i rekken som er i kø
+            for (int i = elevator.current_floor; int i = 0; i--) {
+                if (q.q_down[i] == 1) { //Sjekker om etasjen er i heissystemet
+                    return i; //Hvis den er der returneres etasjen
+                }
+            }
+            break;
+        case 
     }
+    return -1; //Heisen fant ikke noe måletasje 
 }
