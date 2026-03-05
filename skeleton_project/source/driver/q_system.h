@@ -8,6 +8,9 @@ struct Q_system {
     int q_down[4]; //Liste over bestillinger ned
 };
 
+//Funksjon som initialiserer tomme køer
+void q_system_initialize_q(struct Q_system *q);
+
 //Funksjon som setter alle bestillinger til 0
 //For når stopp-knapp trykkes
 void q_system_empty_q(struct Q_system *q);

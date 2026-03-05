@@ -1,5 +1,12 @@
 #include "q_system.h"
 
+void q_system_initialize_q(struct Q_system *q) {
+    for (int i = 0; i < 4; i++) {
+        q->q_down[i] = 0;
+        q->q_up[i] = 0;
+    };
+}
+
 
 void q_system_empty_q(struct Q_system *q) {
     for (int i = 0; i < 4; i++) {
