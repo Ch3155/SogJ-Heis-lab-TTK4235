@@ -8,9 +8,6 @@
 
 void Elevator_set_door(struct Elevator* Elevator, bool value){
 
-    while (1)
-    {
-
     
     if (elevio_obstruction() == false){
         nanosleep(&(struct timespec){3, 0}, NULL);
@@ -19,10 +16,7 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
     } else {
         nanosleep(&(struct timespec){1, 0}, NULL);
     }
-
-    }
     
-
 }
 
 struct Elevator* Elevator_init(){
