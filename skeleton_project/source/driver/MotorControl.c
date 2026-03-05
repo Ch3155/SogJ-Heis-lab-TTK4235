@@ -7,7 +7,7 @@
 #include "driver/elevio.h"
 
 
-void MotorControl_move_to_floor(struct Elevator* Elevator, struct Q_system* q_system, int floor){
+void MotorControl_move_to_floor(struct Elevator* Elevator, int floor){
 
     if (floor > Elevator->current_floor){
         Elevator->cur_dir = DIRN_UP;
@@ -23,7 +23,14 @@ void MotorControl_move_to_floor(struct Elevator* Elevator, struct Q_system* q_sy
         Elevator_update(Elevator);
         nanosleep(&(struct timespec){0, 0.5*1000*1000}, NULL);
     }
+
+    elevio_motorDirection(DIRN_STOP);
+    Elevator->is_moving = false;
+    
 }
+
+
+
 void MotorControl_stop_elevator(struct Elevator* Elevator){
     elevio_motorDirection(DIRN_STOP);
     Elevator->is_moving = false;
