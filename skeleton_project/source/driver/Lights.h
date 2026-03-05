@@ -1,3 +1,9 @@
+#pragma once
+#include "Elevator.h"
+#include "floorpanel.h"
+
+//Trenger vi disse boolsa eller trenger vi bare å sjekke fra floorpanel også sette lysene høyt etter dem?
+//Så kan vi skru av lys når vi ankommer etasjer/ stoppknappen trykkes
 struct Lights {
     bool BTN_FLR_4_DWN;
     bool BTN_FLR_3_DWN;
@@ -9,36 +15,26 @@ struct Lights {
     bool doorOpenLamp;
     bool stopLamp;
 
-    bool floorLamp;
+    bool floorLamp_1;
+    bool floorLamp_2;
+    bool floorLamp_3;
+    bool floorLamp_4;
+
+    bool BTN_1;
+    bool BTN_2;
+    bool BTN_3;
+    bool BTN_4;
 };
 
-
+//Oppdaterer alle lys
 struct Lights* Lights_init();
-void Lights_update(struct Lights* lights);
 
+//Skrur på aktuelle lys
+void Lights_update(struct Lights* lights, struct Floorpanel floorpanel);
 
+//Fjerner lys i etasjen man ankommer
+void Lights_remove_lights(struct Lights* lights, struct Elevator elevator);
 
+//Skrur av alle lys i tilfelle stopp
+void Lights_turn_all_lights_off();
 
-
-
-
-
-
-
-void q_system_remove_FLR(struct Q_system *q, struct Elevator *elevator, struct Floorpanel *floorpanel) {
-    if (elevator->current_floor == 0) {
-        elevator->BTN_1 = 0;
-        floorpanel->BTN_FLR_1_UP = 0;
-    } else if (elevator->current_floor == 1) {
-        elevator->BTN_2 = 0;
-        floorpanel->BTN_FLR_2_UP = 0;
-        floorpanel->BTN_FLR_2_DWN = 0;
-    } else if (elevator->current_floor == 2) {
-        elevator->BTN_3 = 0;
-        floorpanel->BTN_FLR_3_UP = 0;
-        floorpanel->BTN_FLR_3_DWN = 0;
-    } else if (elevator->current_floor == 3) {
-        elevator->BTN_4 = 0;
-        floorpanel->BTN_FLR_4_DWN = 0;
-    }
-}
