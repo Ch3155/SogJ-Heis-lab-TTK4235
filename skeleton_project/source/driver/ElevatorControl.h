@@ -21,4 +21,4 @@ struct ElevatorControl{
 };
 
 struct ElevatorControl* ElevatorControl_init();
-void ElevatorControl_update(struct ElevatorControl* elevator_control);
+void ElevatorControl_run(struct ElevatorControl* elevator_control);

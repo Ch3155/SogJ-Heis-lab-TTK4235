@@ -16,12 +16,13 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     elevio_motorDirection(DIRN_STOP);
-    struct Elevator* Elevator = Elevator_init();
+    struct Floorpanel* Floorpanel;
+    Floorpanel_update(Floorpanel);
 
     while(1){
         
-        Elevator_update(Elevator);
-        
+        Floorpanel_update(Floorpanel);
+        printf(Floor)        
         if(elevio_stopButton()){
             elevio_motorDirection(DIRN_STOP);
             break;
@@ -29,7 +30,7 @@ int main(){
         
         nanosleep(&(struct timespec){0, 20*1000*1000}, NULL);
     }
-    free(Elevator);
+    
 
     return 0;
 }
