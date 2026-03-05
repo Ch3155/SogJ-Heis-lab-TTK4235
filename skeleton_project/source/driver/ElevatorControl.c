@@ -25,24 +25,37 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     States Current_state = StartUp;
 
+    while (1)
+    {
+
+    
     switch (Current_state)
     {
     case StartUp:
-        if (elevator_control->Elevator->current_floor == -1) {
+        
+        if (elevator_control->Elevator->is_between_floors==false) {
             Current_state = Idle;
         } else {
-            Current_state = Moving;
-        }    
+            Elevator_set_door(elevator_control->Elevator, false);
+            elevio_motorDirection(DIRN_DOWN);
+        }
+            
 
 
         break;
+
+
     case Idle:
-        /* code */
+        Elevator_set_door(elevator_control->Elevator, false);    
+
         break; 
+    
     case Moving:
-        /* code */
+        
     case EmergencyStop:
         /* code */
         break;  
         
     }
+}
+}

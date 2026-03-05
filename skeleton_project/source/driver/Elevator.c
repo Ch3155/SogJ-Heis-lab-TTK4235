@@ -13,15 +13,16 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
 
     
     if (elevio_obstruction() == false){
+        nanosleep(&(struct timespec){3, 0}, NULL);
         Elevator->door_is_open = value;
         return;
     } else {
-        nanosleep(&(struct timespec){0, 3*1e9}, NULL);
+        nanosleep(&(struct timespec){1, 0}, NULL);
     }
 
     }
     
-    
+
 }
 
 struct Elevator* Elevator_init(){
