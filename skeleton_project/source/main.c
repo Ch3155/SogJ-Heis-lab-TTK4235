@@ -18,11 +18,16 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     elevio_motorDirection(DIRN_STOP);
-    struct Floorpanel* Floorpanel;
-    Floorpanel_update(Floorpanel);
-    struct Elevator* Elevator=Elevator_init(Elevator);
+    struct Floorpanel Floorpanel1;
+    Floorpanel_update(&Floorpanel1);
+    struct Elevator Elevator1;
+    struct Elevator* Elevator = &Elevator1;
+    struct Floorpanel* Floorpanel = &Floorpanel1;
+    Elevator_update(Elevator);
     Lights_init();
 
+    //elevio_stopLamp(1);
+    //elevio_motorDirection(DIRN_UP);
     
 
     while(1){
