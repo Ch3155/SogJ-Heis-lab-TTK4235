@@ -28,17 +28,28 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     while (1)
     {
 
+    if(elevio_stopButton()){
+        elevio_motorDirection(DIRN_STOP);
+        break;
+    }
+
+
+
+    
     
     switch (Current_state)
     {
     case StartUp:
-        
-        if (elevator_control->Elevator->is_between_floors==false) {
-            Current_state = Idle;
-        } else {
-            Elevator_set_door(elevator_control->Elevator, false);
+
+        Elevator_set_door(elevator_control->Elevator, false);    
+        while (elevator_control->Elevator->is_between_floors==false)
+        {
             elevio_motorDirection(DIRN_DOWN);
+            Elevator_update(elevator_control->Elevator);
         }
+        elevio_motorDirection(DIRN_STOP);
+        Current_state = Idle;
+        
             
 
 
@@ -46,11 +57,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     case Idle:
-        Elevator_set_door(elevator_control->Elevator, false);    
+           
 
         break; 
     
     case Moving:
+        break;
         
     case EmergencyStop:
         /* code */
