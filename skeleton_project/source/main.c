@@ -21,7 +21,7 @@ int main(){
     struct Floorpanel* Floorpanel;
     Floorpanel_update(Floorpanel);
     struct Elevator* Elevator=Elevator_init(Elevator);
-    lights_init();
+    Lights_init();
 
     
 
