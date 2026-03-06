@@ -9,8 +9,6 @@ void Lights_init() {
     elevio_buttonLamp(2, BUTTON_HALL_DOWN, 0);
     elevio_buttonLamp(2, BUTTON_HALL_UP, 0);
     elevio_buttonLamp(3, BUTTON_HALL_DOWN, 0);
-    elevio_buttonLamp(3, BUTTON_HALL_UP, 0);
-    elevio_buttonLamp(4, BUTTON_HALL_DOWN, 0);
 
     //Etasjelysene settes med elevio_floorIndicator(int floor);
 
@@ -103,8 +101,6 @@ void Lights_turn_all_lights_off() {
     elevio_buttonLamp(2, BUTTON_HALL_DOWN, 0);
     elevio_buttonLamp(2, BUTTON_HALL_UP, 0);
     elevio_buttonLamp(3, BUTTON_HALL_DOWN, 0);
-    elevio_buttonLamp(3, BUTTON_HALL_UP, 0);
-    elevio_buttonLamp(4, BUTTON_HALL_DOWN, 0);
 
     //Etasjelysene settes med elevio_floorIndicator(int floor);
 
