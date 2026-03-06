@@ -10,6 +10,8 @@
 
 
 
+struct ElevatorControl* elevator_control;
+
 
 int main(){
     elevio_init();
@@ -25,9 +27,6 @@ int main(){
     struct Floorpanel* Floorpanel = &Floorpanel1;
     Elevator_update(Elevator);
     Lights_init();
-
-    //elevio_stopLamp(1);
-    //elevio_motorDirection(DIRN_UP);
     
 
     while(1){

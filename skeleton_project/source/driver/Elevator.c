@@ -55,11 +55,12 @@ void Elevator_update(struct Elevator* Elevator){
 
 
     Elevator->stop_button_pressed = elevio_stopButton();
-
+    bool Button_state = 0;
     //Update Floor button states
     for (int floor = 0; floor < N_FLOORS; floor++){
+        Button_state = elevio_callButton(floor, BUTTON_CAB);
        switch (floor){
-        bool Button_state = elevio_callButton(floor, BUTTON_CAB);
+        
                     case 0:
                         Elevator->BTN_1 = Button_state;
                         break;
