@@ -5,6 +5,8 @@
 #include "driver/elevio.h"
 #include "driver/Elevator.h"
 #include "driver/MotorControl.h"
+#include "driver/Lights.h"
+#include "driver/floorpanel.h"
 
 
 
@@ -17,15 +19,17 @@ int main(){
 
     elevio_motorDirection(DIRN_STOP);
     struct Floorpanel* Floorpanel;
-    struct Lights* Lights= Lights_init();
     Floorpanel_update(Floorpanel);
+    struct Elevator* Elevator=Elevator_init(Elevator);
+    lights_init();
 
     
 
     while(1){
         
         Floorpanel_update(Floorpanel);
-        Lights_update(Lights, Floorpanel);  
+        Lights_update(*Floorpanel, *Elevator);  
+        Elevator_update(Elevator);
 
         if(elevio_stopButton()){
             elevio_motorDirection(DIRN_STOP);
