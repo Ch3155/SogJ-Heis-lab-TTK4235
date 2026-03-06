@@ -4,13 +4,13 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <time.h>
-#include "driver/elevio.h"
-#include "driver/Elevator.h"
-#include "driver/MotorControl.h"
-#include "driver/Lights.h"
-#include "driver/floorpanel.h"
-#include "driver/q_system.h"
-#include "driver/ElevatorControl.h"
+#include "elevio.h"
+#include "Elevator.h"
+#include "MotorControl.h"
+#include "Lights.h"
+#include "floorpanel.h"
+#include "q_system.h"
+#include "ElevatorControl.h"
 
 struct Floorpanel {
     bool BTN_FLR_4_DWN;
