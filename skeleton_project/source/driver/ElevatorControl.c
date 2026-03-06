@@ -6,6 +6,8 @@
 #include "floorpanel.h"
 #include "ElevatorControl.h"
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct ElevatorControl* ElevatorControl_init(){
     struct ElevatorControl* elevator_control = malloc(sizeof(struct ElevatorControl));
