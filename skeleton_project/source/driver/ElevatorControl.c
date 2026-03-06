@@ -40,9 +40,9 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     switch (Current_state)
     {
     case StartUp:
-
+        printf("Starting up...\n");
         Elevator_set_door(elevator_control->Elevator, false);    
-        while (elevator_control->Elevator->is_between_floors==false)
+        while (elevator_control->Elevator->is_between_floors==true)
         {
             elevio_motorDirection(DIRN_DOWN);
             Elevator_update(elevator_control->Elevator);
@@ -57,6 +57,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     case Idle:
+        printf("Idle...\n");
            
 
         break; 
