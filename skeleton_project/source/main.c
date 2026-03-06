@@ -17,12 +17,16 @@ int main(){
 
     elevio_motorDirection(DIRN_STOP);
     struct Floorpanel* Floorpanel;
+    struct Lights* Lights= Lights_init();
     Floorpanel_update(Floorpanel);
+
+    
 
     while(1){
         
         Floorpanel_update(Floorpanel);
-        printf(Floor)        
+        Lights_update(Lights, Floorpanel);  
+
         if(elevio_stopButton()){
             elevio_motorDirection(DIRN_STOP);
             break;
