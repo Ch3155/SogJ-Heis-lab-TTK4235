@@ -1,7 +1,8 @@
 #include "Elevator.h"
 #include "elevio.h"
 #include <time.h>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 
 
