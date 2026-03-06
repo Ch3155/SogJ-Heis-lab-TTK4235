@@ -11,3 +11,5 @@ struct Floorpanel {
 };
 
 void Floorpanel_update(struct Floorpanel* floorpanel);
+
+struct Floorpanel* Floorpanel_init();

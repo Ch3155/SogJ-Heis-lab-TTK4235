@@ -29,7 +29,7 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
 
 
 struct Elevator* Elevator_init(){
-    struct Elevator* Elevator;
+    struct Elevator* Elevator = malloc(sizeof(struct Elevator));
     //Initialize the elevator state
     elevio_doorOpenLamp(0);
     Elevator->door_is_open = false;

@@ -8,11 +8,19 @@
 #include <time.h>
 
 struct ElevatorControl* ElevatorControl_init(){
-    struct ElevatorControl* elevator_control;
+    struct ElevatorControl* elevator_control = malloc(sizeof(struct ElevatorControl));
+    
     elevator_control->Elevator = Elevator_init();
-    Floorpanel_update(elevator_control->floorpanel);;
+    elevator_control->floorpanel = Floorpanel_init();
     q_system_empty_q(elevator_control->q_system);
     return elevator_control;
+}
+
+void ElevatorControl_destroy(struct ElevatorControl* elevator_control){
+    free(elevator_control->Elevator);
+    free(elevator_control->floorpanel);
+    free(elevator_control->q_system);
+    free(elevator_control);
 }
 
 void ElevatorControl_run(struct ElevatorControl* elevator_control){
@@ -71,4 +79,6 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         
     }
 }
+
+ElevatorControl_destroy(elevator_control);
 }

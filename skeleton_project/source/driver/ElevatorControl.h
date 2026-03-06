@@ -26,3 +26,4 @@ struct ElevatorControl{
 
 struct ElevatorControl* ElevatorControl_init();
 void ElevatorControl_run(struct ElevatorControl* elevator_control);
+void ElevatorControl_destroy(struct ElevatorControl* elevator_control);
