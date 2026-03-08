@@ -14,6 +14,7 @@ struct ElevatorControl* ElevatorControl_init(){
     
     elevator_control->Elevator = Elevator_init();
     elevator_control->floorpanel = Floorpanel_init();
+    elevator_control->q_system = malloc(sizeof(struct Q_system));
     q_system_empty_q(elevator_control->q_system);
     return elevator_control;
 }
@@ -34,7 +35,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     States Current_state = StartUp;
-
+    int target_floor=-1;
     while (1)
     {
 
@@ -68,11 +69,28 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     case Idle:
         printf("Idle...\n");
-           
+        
+        Elevator_update(elevator_control->Elevator);
+        Floorpanel_update(elevator_control->floorpanel);
+        q_system_make_q(elevator_control->q_system, *elevator_control->Elevator, *elevator_control->floorpanel);
+        target_floor = q_system_get_target_floor(*elevator_control->q_system, *elevator_control->Elevator);
+        if (target_floor != -1){
+            Current_state = Moving;
+        }
+
+
 
         break; 
     
     case Moving:
+        printf("Moving...\n");
+        Elevator_set_door(elevator_control->Elevator, false);
+        MotorControl_move_to_floor(elevator_control->Elevator, target_floor);
+        q_system_remove_FLR(elevator_control->q_system, elevator_control->Elevator);
+        elevator_control->Elevator->door_is_open = true;
+        Elevator_set_door(elevator_control->Elevator, false);
+        Current_state = Idle;
+
         break;
         
     case EmergencyStop:
