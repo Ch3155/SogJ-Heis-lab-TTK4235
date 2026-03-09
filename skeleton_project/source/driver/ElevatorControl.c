@@ -61,6 +61,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
             Elevator_update(elevator_control->Elevator);
         }
         elevio_motorDirection(DIRN_STOP);
+        
         Current_state = Idle;
 
         break;
