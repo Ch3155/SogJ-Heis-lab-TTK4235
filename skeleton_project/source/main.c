@@ -17,33 +17,14 @@ struct ElevatorControl* elevator_control;
 
 int main(){
     elevio_init();
+    elevator_control = ElevatorControl_init();
     
-    printf("=== Example Program ===\n");
+    printf("=== Johannes and Signes awesome Program ===\n");
     printf("Press the stop button on the elevator panel to exit\n");
 
-    elevio_motorDirection(DIRN_STOP);
-    struct Floorpanel Floorpanel1;
-    Floorpanel_update(&Floorpanel1);
-    struct Elevator Elevator1;
-    struct Elevator* Elevator = &Elevator1;
-    struct Floorpanel* Floorpanel = &Floorpanel1;
-    Elevator_update(Elevator);
-    Lights_init();
-    
+    ElevatorControl_run(elevator_control);
 
-    while(1){
-        
-        Floorpanel_update(Floorpanel);
-        Lights_update(*Floorpanel, *Elevator);  
-        Elevator_update(Elevator);
-
-        if(elevio_stopButton()){
-            elevio_motorDirection(DIRN_STOP);
-            break;
-        }
-        
-        nanosleep(&(struct timespec){0, 20*1000*1000}, NULL);
-    }
+    ElevatorControl_destroy(elevator_control);
     
 
     return 0;

@@ -68,7 +68,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     case Idle:
-           
+        printf("Idle...\n");
 
         break; 
     
