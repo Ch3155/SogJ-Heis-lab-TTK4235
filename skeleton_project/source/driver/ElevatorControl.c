@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "floorpanel.h"
 #include "ElevatorControl.h"
+#include "Lights.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
