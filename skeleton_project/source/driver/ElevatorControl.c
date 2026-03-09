@@ -108,11 +108,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
             q_system_remove_FLR(elevator_control->q_system, elevator_control->Elevator);
             Lights_remove_lights(*elevator_control->Elevator);
-
+            
             Elevator_set_door(elevator_control->Elevator, true);
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
             Elevator_set_door(elevator_control->Elevator, false);
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
+            Lights_remove_lights(*elevator_control->Elevator);
             Current_state = Idle;
         }
         
