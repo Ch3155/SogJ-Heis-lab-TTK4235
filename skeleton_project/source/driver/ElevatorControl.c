@@ -74,12 +74,6 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     
     case Moving:
         printf("Moving...\n");
-        Elevator_set_door(elevator_control->Elevator, false);
-        MotorControl_move_to_floor(elevator_control->Elevator, target_floor);
-        q_system_remove_FLR(elevator_control->q_system, elevator_control->Elevator);
-        elevator_control->Elevator->door_is_open = true;
-        Elevator_set_door(elevator_control->Elevator, false);
-        Current_state = Idle;
 
         break;
         
