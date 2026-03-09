@@ -57,26 +57,26 @@ void q_system_make_q(struct Q_system *q, struct Elevator elevator, struct Floorp
 
     //Fiks for knappene inne i heisen
     if (elevator.BTN_4 == true) {
-        if (elevator.current_floor < 3) { //Hvis man skal til fjerde etasje fra en lavere etasje
+        if (elevator.current_floor <= 3) { //Hvis man skal til fjerde etasje fra en lavere etasje
             q->q_up[3] = 1;
         }
     }
     if (elevator.BTN_3 == true) {
-        if (elevator.current_floor < 2) { //Hvis man skal til tredje etasje fra en lavere etasje
+        if (elevator.current_floor < 2 || (elevator.cur_dir == DIRN_DOWN && elevator.current_floor == 2)) { //Hvis man skal til tredje etasje fra en lavere etasje
             q->q_up[2] = 1;
-        } else if (elevator.current_floor > 2) { //Hvis man skal til tredje etasje fra en høyere etasje
+        } else if (elevator.current_floor > 2 || (elevator.cur_dir == DIRN_UP && elevator.current_floor == 2)) { //Hvis man skal til tredje etasje fra en høyere etasje
             q->q_down[2] = 1;
         }
     }
     if (elevator.BTN_2 == true) {
-        if (elevator.current_floor < 1) { //Hvis man skal til andre etasje fra en lavere etasje
+        if (elevator.current_floor < 1 || (elevator.cur_dir == DIRN_DOWN && elevator.current_floor == 1)) { //Hvis man skal til andre etasje fra en lavere etasje
             q->q_up[1] = 1;
-        } else if (elevator.current_floor > 1) { //Hvis man skal til andre etasje fra en høyere etasje
+        } else if (elevator.current_floor > 1 || (elevator.cur_dir == DIRN_UP && elevator.current_floor == 1)) { //Hvis man skal til andre etasje fra en høyere etasje
             q->q_down[1] = 1;
         }
     }
     if (elevator.BTN_1 == true) {
-        if (elevator.current_floor > 0) { //Hvis man skal til første etasje fra en høyere etasje
+        if (elevator.current_floor >= 0) { //Hvis man skal til første etasje fra en høyere etasje
             q->q_down[0] = 1;
         }
     }
