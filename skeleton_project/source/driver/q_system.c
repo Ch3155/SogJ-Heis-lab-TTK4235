@@ -20,14 +20,14 @@ void q_system_remove_FLR(struct Q_system *q, struct Elevator *elevator) {
         q->q_up[0] = 0;
         q->q_down[0] = 0;
     } else if (elevator->current_floor == 1) {
-        q->q_up[0] = 0;
-        q->q_down[0] = 0;
+        q->q_up[1] = 0;
+        q->q_down[1] = 0;
     } else if (elevator->current_floor == 2) {
-        q->q_up[0] = 0;
-        q->q_down[0] = 0;
+        q->q_up[2] = 0;
+        q->q_down[2] = 0;
     } else if (elevator->current_floor == 3) {
-        q->q_up[0] = 0;
-        q->q_down[0] = 0;
+        q->q_up[3] = 0;
+        q->q_down[3] = 0;
     }
 }
 
@@ -46,13 +46,13 @@ void q_system_make_q(struct Q_system *q, struct Elevator elevator, struct Floorp
 
     //Bestillinger oppover
     if (floorpanel.BTN_FLR_1_UP == true) {
-        q->q_down[0] = 1;
+        q->q_up[0] = 1;
     };
     if (floorpanel.BTN_FLR_2_UP == true) {
-        q->q_down[1] = 1;
+        q->q_up[1] = 1;
     };
     if (floorpanel.BTN_FLR_3_UP == true) {
-        q->q_down[2] = 1;
+        q->q_up[2] = 1;
     };
 
     //Fiks for knappene inne i heisen
@@ -87,14 +87,14 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
     switch (elevator.cur_dir) {
         case -1: //Heisen beveger seg nedover
             //Sjekk hvor vi er og ta neste i rekken som er i kø
-            for (int i = elevator.current_floor; i == 0; i--) {
+            for (int i = elevator.current_floor; i > -1; i--) {
                 if (q.q_down[i] == 1) { //Sjekker om etasjen er i heissystemet
                     return i; //Hvis den er der returneres etasjen
                 }
             }
             break;
         case 1: //Heisen beveger seg oppover
-            for (int i = elevator.current_floor; i == 3; i++) {
+            for (int i = elevator.current_floor; i < 4; i++) {
                 if (q.q_up[i] == 1) {
                     return i;
                 }
@@ -102,7 +102,7 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
             break;
         case 0: //Heisen står stille
             //Sjekker køen ned
-            for (int i = 0; i == 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 if ((q.q_down[i] == 1) || (q.q_up[i] == 1)) {
                     return i;
                 }
