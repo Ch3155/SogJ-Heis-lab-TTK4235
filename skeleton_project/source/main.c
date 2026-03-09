@@ -7,8 +7,12 @@
 #include "driver/MotorControl.h"
 #include "driver/Lights.h"
 #include "driver/floorpanel.h"
+#include "driver/q_system.h"
+#include "driver/ElevatorControl.h"
 
 
+
+struct ElevatorControl* elevator_control;
 
 
 int main(){
@@ -25,9 +29,6 @@ int main(){
     struct Floorpanel* Floorpanel = &Floorpanel1;
     Elevator_update(Elevator);
     Lights_init();
-
-    //elevio_stopLamp(1);
-    //elevio_motorDirection(DIRN_UP);
     
 
     while(1){

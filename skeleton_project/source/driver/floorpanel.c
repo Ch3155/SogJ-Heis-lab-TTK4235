@@ -19,3 +19,15 @@ void Floorpanel_update(struct Floorpanel* floorpanel){
 
     
 }
+
+struct Floorpanel* Floorpanel_init(){
+    struct Floorpanel* floorpanel = malloc(sizeof(struct Floorpanel));
+    floorpanel->BTN_FLR_4_DWN = false;
+    floorpanel->BTN_FLR_3_DWN = false;
+    floorpanel->BTN_FLR_3_UP   = false;
+    floorpanel->BTN_FLR_2_DWN = false;
+    floorpanel->BTN_FLR_2_UP   = false;
+    floorpanel->BTN_FLR_1_UP   = false;
+
+    return floorpanel;
+}

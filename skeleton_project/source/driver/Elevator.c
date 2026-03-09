@@ -1,7 +1,8 @@
 #include "Elevator.h"
 #include "elevio.h"
 #include <time.h>
-
+#include <stdio.h>
+#include <stdlib.h>
 
 
 
@@ -29,7 +30,7 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
 
 
 struct Elevator* Elevator_init(){
-    struct Elevator* Elevator;
+    struct Elevator* Elevator = malloc(sizeof(struct Elevator));
     //Initialize the elevator state
     elevio_doorOpenLamp(0);
     Elevator->door_is_open = false;
@@ -55,11 +56,12 @@ void Elevator_update(struct Elevator* Elevator){
 
 
     Elevator->stop_button_pressed = elevio_stopButton();
-
+    bool Button_state = 0;
     //Update Floor button states
     for (int floor = 0; floor < N_FLOORS; floor++){
+        Button_state = elevio_callButton(floor, BUTTON_CAB);
        switch (floor){
-        bool Button_state = elevio_callButton(floor, BUTTON_CAB);
+        
                     case 0:
                         Elevator->BTN_1 = Button_state;
                         break;

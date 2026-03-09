@@ -5,6 +5,10 @@
 #include "elevio.h"
 #include <stdbool.h>
 #include "floorpanel.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <time.h>
 
 
 typedef enum { 
@@ -22,3 +26,4 @@ struct ElevatorControl{
 
 struct ElevatorControl* ElevatorControl_init();
 void ElevatorControl_run(struct ElevatorControl* elevator_control);
+void ElevatorControl_destroy(struct ElevatorControl* elevator_control);

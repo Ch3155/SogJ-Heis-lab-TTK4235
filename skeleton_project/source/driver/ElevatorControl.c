@@ -6,14 +6,24 @@
 #include "floorpanel.h"
 #include "ElevatorControl.h"
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct ElevatorControl* ElevatorControl_init(){
-    struct ElevatorControl* elevator_control;
+    struct ElevatorControl* elevator_control = malloc(sizeof(struct ElevatorControl));
+    
     elevator_control->Elevator = Elevator_init();
-    Floorpanel_update(elevator_control->floorpanel);
+    elevator_control->floorpanel = Floorpanel_init();
     elevator_control->q_system = malloc(sizeof(struct Q_system));
     q_system_empty_q(elevator_control->q_system);
     return elevator_control;
+}
+
+void ElevatorControl_destroy(struct ElevatorControl* elevator_control){
+    free(elevator_control->Elevator);
+    free(elevator_control->floorpanel);
+    free(elevator_control->q_system);
+    free(elevator_control);
 }
 
 void ElevatorControl_run(struct ElevatorControl* elevator_control){
@@ -25,7 +35,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     States Current_state = StartUp;
-
+    int target_floor=-1;
     while (1)
     {
 
@@ -43,7 +53,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     case StartUp:
         printf("Starting up...\n");
         Elevator_set_door(elevator_control->Elevator, false);    
-        while (elevator_control->Elevator->is_between_floors==false)
+        while (elevator_control->Elevator->is_between_floors==true)
         {
             elevio_motorDirection(DIRN_DOWN);
             Elevator_update(elevator_control->Elevator);
@@ -58,11 +68,19 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     case Idle:
-        printf("Idle...\n");
+           
 
         break; 
     
     case Moving:
+        printf("Moving...\n");
+        Elevator_set_door(elevator_control->Elevator, false);
+        MotorControl_move_to_floor(elevator_control->Elevator, target_floor);
+        q_system_remove_FLR(elevator_control->q_system, elevator_control->Elevator);
+        elevator_control->Elevator->door_is_open = true;
+        Elevator_set_door(elevator_control->Elevator, false);
+        Current_state = Idle;
+
         break;
         
     case EmergencyStop:
@@ -71,4 +89,6 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         
     }
 }
+
+ElevatorControl_destroy(elevator_control);
 }
