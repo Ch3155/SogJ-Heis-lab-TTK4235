@@ -10,7 +10,8 @@
 struct ElevatorControl* ElevatorControl_init(){
     struct ElevatorControl* elevator_control;
     elevator_control->Elevator = Elevator_init();
-    Floorpanel_update(elevator_control->floorpanel);;
+    Floorpanel_update(elevator_control->floorpanel);
+    elevator_control->q_system = malloc(sizeof(struct Q_system));
     q_system_empty_q(elevator_control->q_system);
     return elevator_control;
 }
@@ -40,7 +41,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     switch (Current_state)
     {
     case StartUp:
-
+        printf("Starting up...\n");
         Elevator_set_door(elevator_control->Elevator, false);    
         while (elevator_control->Elevator->is_between_floors==false)
         {
@@ -57,7 +58,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
 
     case Idle:
-           
+        printf("Idle...\n");
 
         break; 
     
