@@ -87,14 +87,14 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
     switch (elevator.cur_dir) {
         case -1: //Heisen beveger seg nedover
             //Sjekk hvor vi er og ta neste i rekken som er i kø
-            for (int i = elevator.current_floor; i = 0; i--) {
+            for (int i = elevator.current_floor; i == 0; i--) {
                 if (q.q_down[i] == 1) { //Sjekker om etasjen er i heissystemet
                     return i; //Hvis den er der returneres etasjen
                 }
             }
             break;
         case 1: //Heisen beveger seg oppover
-            for (int i = elevator.current_floor; i = 3; i++) {
+            for (int i = elevator.current_floor; i == 3; i++) {
                 if (q.q_up[i] == 1) {
                     return i;
                 }
@@ -102,7 +102,7 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
             break;
         case 0: //Heisen står stille
             //Sjekker køen ned
-            for (int i = 0; i = 3; i++) {
+            for (int i = 0; i == 3; i++) {
                 if ((q.q_down[i] == 1) || (q.q_up[i] == 1)) {
                     return i;
                 }

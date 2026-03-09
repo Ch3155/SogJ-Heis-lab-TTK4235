@@ -45,6 +45,7 @@ struct Elevator* Elevator_init(){
     }
 
     Elevator->stop_button_pressed=elevio_stopButton();
+    Elevator->cur_dir=DIRN_STOP;
     return Elevator;
 }
 
