@@ -83,6 +83,36 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     
     case Moving:
         printf("Moving...\n");
+        Elevator_update(elevator_control->Elevator);
+        Floorpanel_update(elevator_control->floorpanel);
+        Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
+        q_system_make_q(elevator_control->q_system, *elevator_control->Elevator, *elevator_control->floorpanel);
+        target_floor = q_system_get_target_floor(*elevator_control->q_system, *elevator_control->Elevator);
+
+
+
+        if (target_floor > elevator_control->Elevator->current_floor){
+            elevator_control->Elevator->cur_dir = DIRN_UP;
+            elevator_control->Elevator->is_moving = true;
+            elevio_motorDirection(elevator_control->Elevator->cur_dir);
+        } else if (target_floor < elevator_control->Elevator->current_floor){
+            elevator_control->Elevator->cur_dir = DIRN_DOWN;
+            elevator_control->Elevator->is_moving = true;
+            elevio_motorDirection(elevator_control->Elevator->cur_dir);
+        } else {
+            MotorControl_stop_elevator(elevator_control->Elevator);
+            elevator_control->Elevator->is_moving = false;
+            q_system_remove_FLR(elevator_control->q_system, elevator_control->Elevator);
+            Lights_remove_lights(*elevator_control->Elevator);
+            Elevator_set_door(elevator_control->Elevator, true);
+            Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
+            Elevator_set_door(elevator_control->Elevator, false);
+            Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
+
+        }
+        
+        
+
 
         break;
         
