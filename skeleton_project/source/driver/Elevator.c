@@ -10,7 +10,9 @@
 void Elevator_set_door(struct Elevator* Elevator, bool value){
     int temp_counter=0;
 
-    while (1){
+    if (value == false) {
+        while (1){
+        
         if (elevio_obstruction() == false){
             temp_counter++;
         } else {
@@ -21,6 +23,7 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
             break;
         }
         nanosleep(&(struct timespec){0, 10*1000*1000}, NULL);
+        }
     }
     Elevator->door_is_open = value;
     elevio_doorOpenLamp(value);
