@@ -53,7 +53,8 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     {
     case StartUp:
         printf("Starting up...\n");
-        Elevator_set_door(elevator_control->Elevator, false);    
+        Elevator_set_door(elevator_control->Elevator, false); 
+        Lights_turn_all_lights_off();   
         while (elevator_control->Elevator->is_between_floors==true)
         {
             elevio_motorDirection(DIRN_DOWN);
@@ -61,15 +62,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         }
         elevio_motorDirection(DIRN_STOP);
         Current_state = Idle;
-        
-            
-
 
         break;
 
 
     case Idle:
-        printf("Idle...\n");
+        printf("Idle... Target_floor = %d\n", target_floor);
         Elevator_update(elevator_control->Elevator);
         Floorpanel_update(elevator_control->floorpanel);
         Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
