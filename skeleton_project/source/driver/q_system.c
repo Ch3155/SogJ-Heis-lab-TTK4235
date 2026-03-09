@@ -92,11 +92,21 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
                     return i; //Hvis den er der returneres etasjen
                 }
             }
+            for (int i = elevator.current_floor; i < 4; i++) {
+                if (q.q_up[i] == 1) {
+                    return i;
+                }
+            }
             break;
         case 1: //Heisen beveger seg oppover
             for (int i = elevator.current_floor; i < 4; i++) {
                 if (q.q_up[i] == 1) {
                     return i;
+                }
+            }
+            for (int i = elevator.current_floor; i > -1; i--) {
+                if (q.q_down[i] == 1) { //Sjekker om etasjen er i heissystemet
+                    return i; //Hvis den er der returneres etasjen
                 }
             }
             break;
