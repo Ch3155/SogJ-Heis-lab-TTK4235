@@ -88,18 +88,21 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
         q_system_make_q(elevator_control->q_system, *elevator_control->Elevator, *elevator_control->floorpanel);
         target_floor = q_system_get_target_floor(*elevator_control->q_system, *elevator_control->Elevator);
-
+        printf("Target floor: %d\n", target_floor);
 
 
         if (target_floor > elevator_control->Elevator->current_floor){
+            printf("Going up...\n");
             elevator_control->Elevator->cur_dir = DIRN_UP;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
         } else if (target_floor < elevator_control->Elevator->current_floor){
+            printf("Going down...\n");
             elevator_control->Elevator->cur_dir = DIRN_DOWN;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
         } else {
+            printf("Arrived at target floor...\n");
             MotorControl_stop_elevator(elevator_control->Elevator);
             elevator_control->Elevator->is_moving = false;
 
