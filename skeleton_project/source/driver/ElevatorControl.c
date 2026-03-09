@@ -69,6 +69,15 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     case Idle:
         printf("Idle...\n");
+        Elevator_update(elevator_control->Elevator);
+        Floorpanel_update(elevator_control->floorpanel);
+        Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
+        q_system_make_q(elevator_control->q_system, *elevator_control->Elevator, *elevator_control->floorpanel);
+        target_floor = q_system_get_target_floor(*elevator_control->q_system, *elevator_control->Elevator);
+        if (target_floor != -1) {
+            Current_state = Moving;
+        }
+    
 
         break; 
     
@@ -82,6 +91,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         break;  
         
     }
+    nanosleep(&(struct timespec){0, 10*1000*1000}, NULL);
 }
 
 ElevatorControl_destroy(elevator_control);

@@ -23,8 +23,6 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     ElevatorControl_run(elevator_control);
-
-    ElevatorControl_destroy(elevator_control);
     
 
     return 0;

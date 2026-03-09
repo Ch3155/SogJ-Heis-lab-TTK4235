@@ -7,7 +7,6 @@
 #include "elevio.h"
 #include "Elevator.h"
 #include "MotorControl.h"
-#include "Lights.h"
 #include "floorpanel.h"
 #include "q_system.h"
 #include "ElevatorControl.h"
