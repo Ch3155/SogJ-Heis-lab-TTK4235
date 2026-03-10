@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "floorpanel.h"
+#include "floorpanel.h"
+#include "q_system.h"
 
 
 

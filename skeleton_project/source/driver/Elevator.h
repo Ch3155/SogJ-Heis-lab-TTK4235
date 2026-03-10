@@ -1,9 +1,10 @@
 #pragma once
 #include "elevio.h"
 #include "stdbool.h"
-//#include "floorpanel.h"
-//#include "q_system.h"
 #include "Lights.h"
+
+struct Floorpanel;
+struct Q_system;
 
 /**
  * @brief Structure representing the state of an elevator.
