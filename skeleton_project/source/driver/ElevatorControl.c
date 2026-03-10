@@ -39,11 +39,11 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     int target_floor=-1;
     while (1)
     {
-
-    if(elevio_stopButton()){
+/* 
+    if(elevio_stopButton() ){
         elevio_motorDirection(DIRN_STOP);
         break;
-    }
+    } */
 
 
 
@@ -87,6 +87,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     case Idle:
         printf("Idle... Target_floor = %d\n", target_floor);
+
+        if (elevio_stopButton()){
+            Current_state = EmergencyStop;
+            break;
+        }
+
         Elevator_update(elevator_control->Elevator);
         Floorpanel_update(elevator_control->floorpanel);
         Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
@@ -101,6 +107,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     
     case Moving:
         printf("Moving...\n");
+
+        if (elevio_stopButton()){
+            Current_state = EmergencyStop;
+            break;
+        }
+
         Elevator_update(elevator_control->Elevator);
         Floorpanel_update(elevator_control->floorpanel);
         Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
