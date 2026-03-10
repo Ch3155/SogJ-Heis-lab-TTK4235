@@ -5,7 +5,6 @@
 #include <signal.h>
 #include <time.h>
 #include "elevio.h"
-#include "Elevator.h"
 #include "MotorControl.h"
 #include "floorpanel.h"
 #include "q_system.h"

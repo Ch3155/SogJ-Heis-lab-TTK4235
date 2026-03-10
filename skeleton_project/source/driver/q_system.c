@@ -1,4 +1,6 @@
 #include "q_system.h"
+#include "Elevator.h"
+#include "floorpanel.h"
 
 void q_system_initialize_q(struct Q_system *q) {
     for (int i = 0; i < 4; i++) {

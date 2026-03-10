@@ -1,6 +1,9 @@
 #pragma once
 #include "elevio.h"
 #include "stdbool.h"
+//#include "floorpanel.h"
+//#include "q_system.h"
+#include "Lights.h"
 
 /**
  * @brief Structure representing the state of an elevator.
@@ -23,7 +26,7 @@ struct Elevator {   // Structure declaration
 /**
  * @brief Sets the state of the elevator door and updates the corresponding lamp.
  */
-void Elevator_set_door(struct Elevator* Elevator, bool value);
+void Elevator_set_door(struct Elevator* Elevator, bool value, struct Floorpanel* floorpanel, struct Q_system* q_system);
 
 /**
 *@brief Creates and initializes a global Elevator structure with default values.

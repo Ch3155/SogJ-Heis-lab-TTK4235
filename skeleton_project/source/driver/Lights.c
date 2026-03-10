@@ -1,4 +1,6 @@
 #include "Lights.h"
+#include "Elevator.h"
+#include "floorpanel.h"
 
 
 void Lights_init() {

@@ -1,8 +1,8 @@
 #pragma once
-#include "Elevator.h"
-#include "floorpanel.h"
 #include "elevio.h"
 
+struct Floorpanel;
+struct Elevator;
 //Trenger vi disse boolsa eller trenger vi bare å sjekke fra floorpanel også sette lysene høyt etter dem?
 //Så kan vi skru av lys når vi ankommer etasjer/ stoppknappen trykkes
 

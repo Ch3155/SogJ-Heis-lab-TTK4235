@@ -3,11 +3,11 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "floorpanel.h"
 
 
 
-
-void Elevator_set_door(struct Elevator* Elevator, bool value){
+void Elevator_set_door(struct Elevator* Elevator, bool value, struct Floorpanel* floorpanel, struct Q_system* q_system){
     int temp_counter=0;
 
     if (value == false) {
@@ -22,6 +22,10 @@ void Elevator_set_door(struct Elevator* Elevator, bool value){
         if (temp_counter >= 300){
             break;
         }
+        Floorpanel_update(floorpanel);
+        Elevator_update(Elevator);
+        q_system_make_q(q_system, *Elevator, *floorpanel);
+        Lights_update(*floorpanel, *Elevator);
         nanosleep(&(struct timespec){0, 10*1000*1000}, NULL);
         }
     }
