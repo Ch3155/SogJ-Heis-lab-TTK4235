@@ -119,7 +119,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
             elevator_control->Elevator->cur_dir = DIRN_DOWN;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
-        } else {
+        } else if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->is_between_floors == false){
             printf("Arrived at target floor...\n");
             MotorControl_stop_elevator(elevator_control->Elevator);
             elevator_control->Elevator->is_moving = false;
