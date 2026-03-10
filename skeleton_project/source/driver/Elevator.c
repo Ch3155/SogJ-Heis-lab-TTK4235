@@ -21,14 +21,14 @@ void Elevator_set_door(struct Elevator* Elevator, bool value, struct Floorpanel*
             temp_counter=0;
         }
 
-        if (temp_counter >= 300){
+        if (temp_counter >= 30){
             break;
         }
         Floorpanel_update(floorpanel);
         Elevator_update(Elevator);
         q_system_make_q(q_system, *Elevator, *floorpanel);
         Lights_update(*floorpanel, *Elevator);
-        nanosleep(&(struct timespec){0, 10*1000*1000}, NULL);
+        nanosleep(&(struct timespec){0, 100*1000*1000}, NULL);
         }
     }
     Elevator->door_is_open = value;

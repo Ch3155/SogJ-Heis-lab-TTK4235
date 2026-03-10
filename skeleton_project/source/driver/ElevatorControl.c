@@ -55,7 +55,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         printf("Starting up...\n");
         int temp_counter=0;
 
-        if (elevio_obstruction() == true) {
+        if (elevio_obstruction() == true && elevator_control->Elevator->door_is_open == true){ {
             while (1){
             
             if (elevio_obstruction() == false){
