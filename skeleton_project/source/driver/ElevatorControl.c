@@ -122,13 +122,13 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         printf("Target floor: %d\n", target_floor);
 
 
-        if (target_floor > elevator_control->Elevator->current_floor || (reverse_motor == true && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN)){
+        if (target_floor > elevator_control->Elevator->current_floor || (reverse_motor && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN)){
             printf("Going up...\n");
             elevator_control->Elevator->cur_dir = DIRN_UP;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
             reverse_motor = false;
-        } else if (target_floor < elevator_control->Elevator->current_floor || (reverse_motor == true && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_UP)){
+        } else if (target_floor < elevator_control->Elevator->current_floor || (reverse_motor && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_UP)){
             printf("Going down...\n");
             elevator_control->Elevator->cur_dir = DIRN_DOWN;
             elevator_control->Elevator->is_moving = true;
@@ -151,16 +151,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
             Lights_remove_lights(*elevator_control->Elevator);
             Current_state = Idle;
-        } else if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN) {
-            printf("Going up... (after emergency)\n");
-            elevator_control->Elevator->cur_dir = DIRN_UP;
-            elevator_control->Elevator->is_moving = true;
-            elevio_motorDirection(elevator_control->Elevator->cur_dir);
-        } else if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_UP) {
-            printf("Going down... (after emergency)\n");
-            elevator_control->Elevator->cur_dir = DIRN_DOWN;
-            elevator_control->Elevator->is_moving = true;
-            elevio_motorDirection(elevator_control->Elevator->cur_dir);
+            reverse_motor = false;
         }
         
         
