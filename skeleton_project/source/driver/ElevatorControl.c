@@ -53,7 +53,25 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
     {
     case StartUp:
         printf("Starting up...\n");
-        Elevator_set_door(elevator_control->Elevator, false); 
+        int temp_counter=0;
+
+        if (elevio_obstruction() == true) {
+            while (1){
+            
+            if (elevio_obstruction() == false){
+                temp_counter++;
+            } else {
+                temp_counter=0;
+            }
+
+            if (temp_counter >= 300){
+                break;
+            }
+            nanosleep(&(struct timespec){0, 10*1000*1000}, NULL);
+            }
+        }
+        elevator_control->Elevator->door_is_open = false;
+        elevio_doorOpenLamp(false);
         Lights_turn_all_lights_off();   
         while (elevator_control->Elevator->is_between_floors==true)
         {
@@ -112,9 +130,9 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
             Floorpanel_update(elevator_control->floorpanel);
             Lights_remove_lights(*elevator_control->Elevator);
 
-            Elevator_set_door(elevator_control->Elevator, true);
+            Elevator_set_door(elevator_control->Elevator, true, elevator_control->floorpanel, elevator_control->q_system);
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
-            Elevator_set_door(elevator_control->Elevator, false);
+            Elevator_set_door(elevator_control->Elevator, false, elevator_control->floorpanel, elevator_control->q_system);
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
             Lights_remove_lights(*elevator_control->Elevator);
             Current_state = Idle;
