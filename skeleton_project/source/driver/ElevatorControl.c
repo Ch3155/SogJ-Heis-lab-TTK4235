@@ -161,6 +161,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         
     case EmergencyStop:
         printf("Emergency stop...\n");
+        elevio_stopLamp(1);
         reverse_motor = true;
         MotorControl_stop_elevator(elevator_control->Elevator);
         q_system_empty_q(elevator_control->q_system);
@@ -175,6 +176,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         {
             nanosleep(&(struct timespec){0, 300*1000*1000}, NULL);
         }
+        elevio_stopLamp(0);
 
         Elevator_set_door(elevator_control->Elevator, false, elevator_control->floorpanel, elevator_control->q_system);
 
