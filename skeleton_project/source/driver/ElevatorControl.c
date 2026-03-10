@@ -144,7 +144,26 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         break;
         
     case EmergencyStop:
-        /* code */
+        printf("Emergency stop...\n");
+        MotorControl_stop_elevator(elevator_control->Elevator);
+        q_system_empty_q(elevator_control->q_system);
+        Lights_turn_all_lights_off();
+
+        if (elevator_control->Elevator->is_between_floors == false){
+            elevator_control->Elevator->door_is_open = true;
+            elevio_doorOpenLamp(true);
+        }
+
+        while (elevio_stopButton())
+        {
+            nanosleep(&(struct timespec){0, 300*1000*1000}, NULL);
+        }
+
+        Elevator_set_door(elevator_control->Elevator, false, elevator_control->floorpanel, elevator_control->q_system);
+
+
+        Current_state=Idle;
+        
         break;  
         
     }
