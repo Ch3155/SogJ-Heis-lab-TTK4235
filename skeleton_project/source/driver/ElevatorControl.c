@@ -121,12 +121,12 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         printf("Target floor: %d\n", target_floor);
 
 
-        if (target_floor > elevator_control->Elevator->current_floor){
+        if (target_floor > elevator_control->Elevator->current_floor || (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN)){
             printf("Going up...\n");
             elevator_control->Elevator->cur_dir = DIRN_UP;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
-        } else if (target_floor < elevator_control->Elevator->current_floor){
+        } else if (target_floor < elevator_control->Elevator->current_floor || (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_UP)){
             printf("Going down...\n");
             elevator_control->Elevator->cur_dir = DIRN_DOWN;
             elevator_control->Elevator->is_moving = true;
