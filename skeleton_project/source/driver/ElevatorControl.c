@@ -37,6 +37,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
 
     States Current_state = StartUp;
     int target_floor=-1;
+    bool reverse_motor = false;
     while (1)
     {
 /* 
@@ -121,16 +122,18 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         printf("Target floor: %d\n", target_floor);
 
 
-        if (target_floor > elevator_control->Elevator->current_floor){
+        if (target_floor > elevator_control->Elevator->current_floor || (reverse_motor == true && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN)){
             printf("Going up...\n");
             elevator_control->Elevator->cur_dir = DIRN_UP;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
-        } else if (target_floor < elevator_control->Elevator->current_floor){
+            reverse_motor = false;
+        } else if (target_floor < elevator_control->Elevator->current_floor || (reverse_motor == true && target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_UP)){
             printf("Going down...\n");
             elevator_control->Elevator->cur_dir = DIRN_DOWN;
             elevator_control->Elevator->is_moving = true;
             elevio_motorDirection(elevator_control->Elevator->cur_dir);
+            reverse_motor = false;
         } else if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->is_between_floors == false){
             printf("Arrived at target floor...\n");
             MotorControl_stop_elevator(elevator_control->Elevator);
@@ -167,6 +170,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
         
     case EmergencyStop:
         printf("Emergency stop...\n");
+        reverse_motor = true;
         MotorControl_stop_elevator(elevator_control->Elevator);
         q_system_empty_q(elevator_control->q_system);
         Lights_turn_all_lights_off();
