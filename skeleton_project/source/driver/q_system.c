@@ -104,7 +104,7 @@ int q_system_get_target_floor(struct Q_system q, struct Elevator elevator) {
                     return i;
                 }
             }
-            for (int i = 0; i < 4; i++) {
+            for (int i = 3; i  > -1; i--) {
                 if ((q.q_down[i] == 1) || (q.q_up[i] == 1)) {
                     return i;
                 }
