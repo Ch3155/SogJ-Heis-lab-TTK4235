@@ -148,8 +148,7 @@ void ElevatorControl_run(struct ElevatorControl* elevator_control){
             Lights_update(*elevator_control->floorpanel, *elevator_control->Elevator);
             Lights_remove_lights(*elevator_control->Elevator);
             Current_state = Idle;
-        }
-        if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN) {
+        } else if (target_floor == elevator_control->Elevator->current_floor && elevator_control->Elevator->cur_dir == DIRN_DOWN) {
             printf("Going up... (after emergency)\n");
             elevator_control->Elevator->cur_dir = DIRN_UP;
             elevator_control->Elevator->is_moving = true;
